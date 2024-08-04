@@ -1,0 +1,35 @@
+# Windows system files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editor and IDE specific files
+.vscode/
+.vs/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# Build and dependency directories
+node_modules/
+venv/
+__pycache__/
+*.egg-info/
+target/
+bin/
+obj/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+
+# Configuration files with sensitive data
+config.yml
+credentials.json
