@@ -8,7 +8,7 @@
 </head>
 <body>
   <h2>Select Your Preferred Hostel</h2>
-  <form action="select_hostel.php" method="POST">
+  <form action="../../backend/hostel-management/select_hostel.php" method="POST">
     <label for="hostels">Choose a hostel:</label>
     <select id="hostels" name="hostel_id" required>
     <?php
@@ -52,6 +52,6 @@
     </select><br><br>
     <button type="submit">Submit</button>
   </form>
-  <a href="index.html"><button>Home</button></a>
+  <a href="dashboard.html"><button>Home</button></a>
 </body>
 </html>
