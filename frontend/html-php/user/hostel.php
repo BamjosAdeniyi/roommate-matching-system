@@ -11,6 +11,7 @@
   <form action="../../backend/hostel-management/select_hostel.php" method="POST">
     <label for="hostels">Choose a hostel:</label>
     <select id="hostels" name="hostel_id" required>
+    
     <?php
       // Add error reporting
       error_reporting(E_ALL);
