@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../../styles/style.css">
   <title>Hostel Selection</title>
 </head>
 <body>
   <h2>Select Your Preferred Hostel</h2>
-  <form action="../../backend/hostel-management/select_hostel.php" method="POST">
+  <form action="../../../backend/hostel/select_hostel.php" method="POST">
     <label for="hostels">Choose a hostel:</label>
     <select id="hostels" name="hostel_id" required>
     
@@ -17,7 +17,7 @@
       error_reporting(E_ALL);
       ini_set('display_errors', 1);
 
-      include '../../config/db_connect.php';
+      include '../../../config/db_connect.php';
 
       // Check connection
       if (!$conn) {

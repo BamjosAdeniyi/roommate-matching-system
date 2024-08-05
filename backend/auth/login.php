@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email'] = $user['email'];
 
             // Redirect to the student dashboard or another page
-            header("Location: ../../frontend/html-php/dashboard.html");
+            header("Location: ../../frontend/html-php/user/dashboard.html");
             exit();
         } else {
             echo "Invalid password.";

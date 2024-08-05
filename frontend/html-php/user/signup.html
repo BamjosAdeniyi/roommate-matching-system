@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../../styles/style.css">
     <title>Student Registration</title>
     <script>
         function validateForm() {
@@ -20,7 +20,7 @@
 </head>
 <body>
     <h2>Student Registration</h2>
-    <form action="../../backend/authentication/signup.php" method="POST" onsubmit="return validateForm()">
+    <form action="../../../backend/auth/signup.php" method="POST" onsubmit="return validateForm()">
         <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
@@ -37,6 +37,6 @@
     </form>
     <p>Login if you already have an account</p>
     <a href="login.html"><button>Login</button></a>
-    <a href="index.html"><button>Home</button></a>
+    <a href="../index.html"><button>Home</button></a>
 </body>
 </html>
