@@ -21,6 +21,6 @@ include '../../../config/db_connect.php';
     <p>Hello, <?php echo $_SESSION['admin']; ?>. Here you can manage the system.</p>
     <a href="manage_hostels.php"><button>Manage Hostel</button></a>
     <a href="view_students.php"><button>View Students</button></a>
-    <a href="../../backend/auth/logout.php"><button>Logout</button></a>
+    <a href="../../../backend/auth/admin_logout.php"><button>Logout</button></a>
 </body>
 </html>

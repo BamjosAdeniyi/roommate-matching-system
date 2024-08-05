@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "INSERT INTO hostels (name, number_of_rooms, students_per_room) VALUES ('$name', '$number_of_rooms', '$students_per_room')";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: manage_hostels.php?message=Hostel added successfully");
+        header("Location: ../../frontend/app/admin/manage_hostels.php?message=Hostel added successfully");
     } else {
         echo "Error: " . mysqli_error($conn);
     }

@@ -14,7 +14,7 @@
       echo "<p>" . htmlspecialchars($_GET['message']) . "</p>";
   }
 
-  include 'db_connect.php';
+  include '../../../config/db_connect.php';
 
   // Add error reporting
   error_reporting(E_ALL);
@@ -35,7 +35,7 @@
           echo "<td>" . $row['name'] . "</td>";
           echo "<td>" . $row['number_of_rooms'] . "</td>";
           echo "<td>" . $row['students_per_room'] . "</td>";
-          echo "<td><form action='delete_hostel.php' method='POST'><input type='hidden' name='id' value='" . $row['id'] . "'><button type='submit'>Delete</button></form></td>";
+          echo "<td><form action='../../../backend/hostel/delete_hostel.php' method='POST'><input type='hidden' name='id' value='" . $row['id'] . "'><button type='submit'>Delete</button></form></td>";
           echo "</tr>";
       }
       echo "</table>";
@@ -47,7 +47,7 @@
   ?>
 
   <h3>Add Hostel</h3>
-  <form action="add_hostel.php" method="POST">
+  <form action="../../../backend/hostel/add_hostel.php" method="POST">
     <label for="name">Hostel Name:</label><br>
     <input type="text" id="name" name="name" required><br><br>
     <label for="number_of_rooms">Number of Rooms:</label><br>

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $sql = "DELETE FROM hostels WHERE id='$id'";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: ../../frontend/html-php/admin/manage_hostels.php?message=Hostel deleted successfully");
+        header("Location: ../../frontend/app/admin/manage_hostels.php?message=Hostel deleted successfully");
     } else {
         echo "Error: " . mysqli_error($conn);
     }
