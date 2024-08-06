@@ -1,13 +1,13 @@
 <?php
 session_start();
-include '../../../config/db_connect.php';
+include '../../config/db_connect.php';
 
 // Add error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Initialize errors array
-$errors = array('email'=>'', 'password'=>'', 'incorrect'=>'');
+$errors = array('email' => '', 'password' => '', 'incorrect' => '');
 
 $email = $password = '';
 
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['email'] = $user['email'];
 
                 // Redirect to the student dashboard or another page
-                header("Location: dashboard.html");
+                header("Location: ../../frontend/app/user/user_dashboard.html");
                 exit();
             } else {
                 $errors['incorrect'] = "Invalid password.";
@@ -63,31 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../styles/style.css">
-    <title>Student Login</title>
-</head>
-<body>
-    <h2>Student Login</h2>
-    <form action="login.php" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>"><br>
-        <div class="error"><?php echo $errors['email']; ?></div><br>
-
-        <label for="password">Password:</label>
-        <input type="text" id="password" name="password" value="<?php echo htmlspecialchars($password);?>"><br> <!-- Change this back to password for production -->
-        <div class="error"><?php echo $errors['password']; ?></div>
-
-        <div class="error"><?php echo $errors['incorrect']; ?></div><br>
-
-        <input type="submit" name="submit" value="Login">
-    </form>
-    <a href="../index.html"><button>Home</button></a>
-</body>
-</html>
+// Include the frontend form
+include '../../frontend/app/user/user_login_form.php';
