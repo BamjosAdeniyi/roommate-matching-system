@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (mysqli_num_rows($result) > 0) {
-        die("Email is already registered. <a href='../../frontend/app/user/login.html'>Login</a>. now");
+        die("Email is already registered. <a href='../../frontend/app/user/login.php'>Login</a>. now");
     }
 
     // Hash the password for security
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert new user into the database
     $sql = "INSERT INTO students (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
     if (mysqli_query($conn, $sql)) {
-        echo "Registration successful! You can now <a href='../../frontend/app/user/login.html'>login</a>.";
+        echo "Registration successful! You can now <a href='../../frontend/app/user/login.php'>login</a>.";
     } else {
         die("Error: " . mysqli_error($conn));
     }
