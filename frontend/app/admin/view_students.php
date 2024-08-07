@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../styles/style.css">
+  <link rel="stylesheet" href="/roommate-matching-system/frontend/styles/style.css">
   <title>View Registered Students</title>
 </head>
 <body>
@@ -20,17 +20,26 @@
       while ($hostel = mysqli_fetch_assoc($hostel_result)) {
           echo "<h3>" . $hostel['name'] . "</h3>";
 
-          // Fetch students registered in this hostel
-          $student_query = "SELECT s.id, s.name, 
-                                   LEAST(
-                                     s.agreeableness, 
-                                     s.conscientiousness, 
-                                     s.extraversion, 
-                                     s.neuroticism, 
-                                     s.openness
-                                   ) AS predominant_trait 
-                            FROM students s
-                            WHERE s.hostel_id = " . $hostel['id'];
+          // Fetch students registered in this hostel and determine the predominant trait
+          $student_query = "
+            SELECT s.id, s.name,
+              GREATEST(
+                s.agreeableness, 
+                s.conscientiousness, 
+                s.extraversion, 
+                s.neuroticism, 
+                s.openness
+              ) AS highest_score,
+              CASE 
+                WHEN s.agreeableness = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Agreeableness'
+                WHEN s.conscientiousness = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Conscientiousness'
+                WHEN s.extraversion = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Extraversion'
+                WHEN s.neuroticism = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Neuroticism'
+                WHEN s.openness = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Openness'
+              END AS predominant_trait 
+            FROM students s
+            WHERE s.hostel_id = " . $hostel['id'];
+          
           $student_result = mysqli_query($conn, $student_query);
 
           if (mysqli_num_rows($student_result) > 0) {
