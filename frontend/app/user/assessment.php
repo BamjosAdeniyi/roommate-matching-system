@@ -24,6 +24,7 @@ function renderChoices($question) {
 <head>
     <meta charset="UTF-8">
     <title>Personality Assessment</title>
+    <link rel="stylesheet" href="/roommate-matching-system/frontend/styles/style.css">
     <style>
         .question-container {
             display: none;
