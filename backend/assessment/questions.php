@@ -814,7 +814,7 @@ $questions = [
   ],
   [
     'id' => 'e7b31bdc-5f6b-40ec-ba91-f5919b0f170e',
-    'text' => 'Remain calm under pressure',
+    'text' => 'Look at the bright side of life',
     'keyed' => 'plus',
     'domain' => 'E',
     'facet' => 6

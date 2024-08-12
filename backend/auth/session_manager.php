@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Keep the session alive
-$sessionLifetime = 1800; // 30 minutes
+$sessionLifetime = 10000; // 30 minutes
 
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $sessionLifetime)) {
     session_unset(); // Unset session variables

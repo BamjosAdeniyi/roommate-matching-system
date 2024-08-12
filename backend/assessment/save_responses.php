@@ -94,9 +94,14 @@ echo "<pre>";
 print_r($traitScores);
 print_r($facetScores);
 echo "</pre>";
+// header('location: /roommate-matching-system/frontend/app/user/results.php');
+echo "Assessment Submitted Successfully";
 ?>
 <html>
   <a href="/roommate-matching-system/frontend/app/user/user_dashboard.html">
     <button type="button" id="exitBtn">Exit Questionnaire</button>
+  </a>
+  <a href="/roommate-matching-system/frontend/app/user/results.php">
+    <button type="button" id="exitBtn">Assessment Result</button>
   </a>
 </html>
