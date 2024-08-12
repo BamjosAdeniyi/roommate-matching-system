@@ -25,12 +25,18 @@ function renderChoices($question) {
     <meta charset="UTF-8">
     <title>Personality Assessment</title>
     <link rel="stylesheet" href="/roommate-matching-system/frontend/styles/style.css">
+    <script src="/roommate-matching-system/frontend/script/assessment.js" defer></script> <!-- Link to JavaScript file -->
     <style>
         .question-container {
             display: none;
         }
         .question-container.active {
             display: block;
+        }
+        #alertMessage {
+            color: red;
+            display: none; /* Hidden by default */
+            margin-top: 10px; /* Space above the message */
         }
     </style>
 </head>
@@ -49,48 +55,11 @@ function renderChoices($question) {
             <button type="button" id="exitBtn">Exit Questionnaire</button>
         </a>
         <button type="submit" id="submitBtn" style="display: none;">Submit</button>
+        <div id="alertMessage">Please select an option before proceeding to the next question.</div> <!-- Alert Message -->
     </form>
+    
+    <!-- Hidden input to pass questions data to JavaScript -->
+    <script type="application/json" id="questionsData"><?php echo json_encode($questions); ?></script>
 
-    <script>
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const submitBtn = document.getElementById('submitBtn');
-        const questionContainers = document.querySelectorAll('.question-container');
-        const progressDisplay = document.getElementById('progress');
-        let currentIndex = 0;
-
-        function updateProgress() {
-            progressDisplay.textContent = `Question ${currentIndex + 1} of ${questionContainers.length}`; // Update progress text
-        }
-
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                questionContainers[currentIndex].classList.remove('active');
-                currentIndex--;
-                questionContainers[currentIndex].classList.add('active');
-            }
-            updateButtons();
-            updateProgress(); // Update progress when navigating
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < questionContainers.length - 1) {
-                questionContainers[currentIndex].classList.remove('active');
-                currentIndex++;
-                questionContainers[currentIndex].classList.add('active');
-            }
-            updateButtons();
-            updateProgress(); // Update progress when navigating
-        });
-
-        function updateButtons() {
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.style.display = currentIndex === questionContainers.length - 1 ? 'none' : 'inline';
-            submitBtn.style.display = currentIndex === questionContainers.length - 1 ? 'inline' : 'none';
-        }
-
-        updateButtons();
-        updateProgress(); // Initial call to set the progress
-    </script>
 </body>
 </html>
