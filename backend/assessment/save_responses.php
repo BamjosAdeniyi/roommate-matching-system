@@ -2,20 +2,16 @@
 include 'questions.php';
 include '../../config/db_connect.php';
 include '../auth/session_manager.php';
+include 'facet_mappings.php'; // Include the facet mapping file
 
 // Start session if not already active
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Debugging output for session
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-
 // Check if the user is logged in and get the user ID
 if (isset($_SESSION['student_id'])) {
-    $userId = $_SESSION['student_id']; // Change to student_id
+    $studentId = $_SESSION['student_id'];
 } else {
     die("User not logged in.");
 }
@@ -29,6 +25,9 @@ $traitScores = [
     'O' => 0, // Openness
 ];
 
+// Initialize an array to store facet scores
+$facetScores = [];
+
 // Collect the responses from the POST request
 $responses = $_POST['responses'];
 
@@ -37,7 +36,17 @@ foreach ($responses as $questionId => $score) {
     foreach ($questions as $question) {
         if ($question['id'] == $questionId) {
             $domain = $question['domain'];
-            $traitScores[$domain] += $score;
+            $traitScores[$domain] += $score; // Accumulate trait scores
+
+            // Calculate facet number
+            $facetNumber = $question['facet'];
+
+            // Map the facet number to the actual name using the facetMappings
+            if (!isset($facetScores[$domain][$facetNumber])) {
+                $facetScores[$domain][$facetNumber] = 0; // Initialize facet score if not set
+            }
+            $facetScores[$domain][$facetNumber] += $score; // Accumulate score for each facet
+
             break;
         }
     }
@@ -46,21 +55,35 @@ foreach ($responses as $questionId => $score) {
 // Database connection is already included via db_connect.php
 // Assuming the $conn variable is available from db_connect.php
 
-// Prepare and execute the SQL query to update the student's trait scores
-$query = "UPDATE students SET 
-          agreeableness = ?, 
-          conscientiousness = ?, 
-          extraversion = ?, 
-          neuroticism = ?, 
-          openness = ? 
-          WHERE id = ?";
-$stmt = mysqli_prepare($conn, $query);
-if ($stmt) {
-    mysqli_stmt_bind_param($stmt, "iiiiii", $traitScores['A'], $traitScores['C'], $traitScores['E'], $traitScores['N'], $traitScores['O'], $userId);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+// Prepare and execute the SQL query to insert the student's trait scores
+$traitQuery = "INSERT INTO personality_traits (student_id, agreeableness, conscientiousness, extraversion, neuroticism, openness) VALUES (?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE agreeableness = VALUES(agreeableness), conscientiousness = VALUES(conscientiousness), extraversion = VALUES(extraversion), neuroticism = VALUES(neuroticism), openness = VALUES(openness)";
+
+$traitStmt = mysqli_prepare($conn, $traitQuery);
+if ($traitStmt) {
+    mysqli_stmt_bind_param($traitStmt, "iiiiii", $studentId, $traitScores['A'], $traitScores['C'], $traitScores['E'], $traitScores['N'], $traitScores['O']);
+    mysqli_stmt_execute($traitStmt);
+    mysqli_stmt_close($traitStmt);
 } else {
-    echo "Error preparing statement: " . mysqli_error($conn);
+    echo "Error preparing statement for traits: " . mysqli_error($conn);
+}
+
+// Now, insert the facet scores into the personality_facets table
+foreach ($facetScores as $domain => $facets) {
+    foreach ($facets as $facetNumber => $score) {
+        $facetName = $facetMappings[$domain][$facetNumber]; // Get the actual facet name
+
+        // Prepare and execute the SQL query to insert the facet scores
+        $facetQuery = "INSERT INTO personality_facets (student_id, domain, facet, score) VALUES (?, ?, ?, ?)";
+        $facetStmt = mysqli_prepare($conn, $facetQuery);
+        if ($facetStmt) {
+            mysqli_stmt_bind_param($facetStmt, "issi", $studentId, $domain, $facetName, $score);
+            mysqli_stmt_execute($facetStmt);
+            mysqli_stmt_close($facetStmt);
+        } else {
+            echo "Error preparing statement for facets: " . mysqli_error($conn);
+        }
+    }
 }
 
 // Close the database connection if necessary (depends on db_connect.php implementation)
@@ -69,6 +92,7 @@ if ($stmt) {
 // Output the results for debugging (optional)
 echo "<pre>";
 print_r($traitScores);
+print_r($facetScores);
 echo "</pre>";
 ?>
 <html>
