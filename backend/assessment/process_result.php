@@ -9,6 +9,15 @@ if (!isset($_SESSION['student_id'])) {
 
 $studentId = $_SESSION['student_id'];
 
+// Trait name mappings
+$traitNames = [
+  'A' => 'Agreeableness',
+  'C' => 'Conscientiousness',
+  'E' => 'Extraversion',
+  'N' => 'Neuroticism',
+  'O' => 'Openness',
+];
+
 // Query to fetch personality trait scores
 $traitQuery = "SELECT * FROM personality_traits WHERE student_id = ?";
 $traitStmt = mysqli_prepare($conn, $traitQuery);
@@ -18,7 +27,7 @@ $traitResult = mysqli_stmt_get_result($traitStmt);
 $traitScores = mysqli_fetch_assoc($traitResult);
 
 // Query to fetch personality facet scores
-$facetQuery = "SELECT domain, facet, score FROM personality_facets WHERE student_id = ?";
+$facetQuery = "SELECT domain, facet, score FROM personality_facets WHERE student_id = ? ORDER BY domain ASC";
 $facetStmt = mysqli_prepare($conn, $facetQuery);
 mysqli_stmt_bind_param($facetStmt, "i", $studentId);
 mysqli_stmt_execute($facetStmt);

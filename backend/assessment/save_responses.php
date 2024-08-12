@@ -73,8 +73,10 @@ foreach ($facetScores as $domain => $facets) {
     foreach ($facets as $facetNumber => $score) {
         $facetName = $facetMappings[$domain][$facetNumber]; // Get the actual facet name
 
-        // Prepare and execute the SQL query to insert the facet scores
-        $facetQuery = "INSERT INTO personality_facets (student_id, domain, facet, score) VALUES (?, ?, ?, ?)";
+        // Prepare and execute the SQL query to insert the facet scores with ON DUPLICATE KEY UPDATE
+        $facetQuery = "INSERT INTO personality_facets (student_id, domain, facet, score) 
+                       VALUES (?, ?, ?, ?)
+                       ON DUPLICATE KEY UPDATE score = VALUES(score)";
         $facetStmt = mysqli_prepare($conn, $facetQuery);
         if ($facetStmt) {
             mysqli_stmt_bind_param($facetStmt, "issi", $studentId, $domain, $facetName, $score);
@@ -90,12 +92,12 @@ foreach ($facetScores as $domain => $facets) {
 // mysqli_close($conn);
 
 // Output the results for debugging (optional)
-echo "<pre>";
-print_r($traitScores);
-print_r($facetScores);
-echo "</pre>";
-// header('location: /roommate-matching-system/frontend/app/user/results.php');
-echo "Assessment Submitted Successfully";
+// echo "<pre>";
+// print_r($traitScores);
+// print_r($facetScores);
+// echo "</pre>";
+header('location: /roommate-matching-system/frontend/app/user/results.php');
+// echo "Assessment Submitted Successfully";
 ?>
 <html>
   <a href="/roommate-matching-system/frontend/app/user/user_dashboard.html">

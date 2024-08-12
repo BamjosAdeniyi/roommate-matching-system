@@ -23,10 +23,10 @@ include '../../../backend/assessment/process_result.php';
         <li>Openness: <?php echo isset($traitScores['openness']) ? $traitScores['openness'] : 'N/A'; ?></li>
     </ul>
 
-    <h2>Facet Scores</h2>
+    <h2>Personality Facet Scores</h2>
     <ul>
         <?php foreach ($facetScores as $domain => $facets): ?>
-            <li><strong><?php echo ucfirst($domain); ?>:</strong>
+            <li><strong><?php echo ucfirst($traitNames[$domain]); ?>:</strong>
                 <ul>
                     <?php foreach ($facets as $facet => $score): ?>
                         <li><?php echo htmlspecialchars($facet) . ': ' . htmlspecialchars($score); ?></li>
