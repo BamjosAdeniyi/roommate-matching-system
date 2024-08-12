@@ -37,5 +37,7 @@ include '../../../backend/assessment/process_result.php';
     </ul>
 
     <a href="/roommate-matching-system/frontend/app/user/user_dashboard.html"><button>Back to Dashboard</button></a>
+    <p>If the personality trait parameters are empty, It means you have not taken the personality assessment test yet. Use the personality assessment button on your <a href="/roommate-matching-system/frontend/app/user/user_dashboard.html">dashboard</a> to take the personality assessment test.</p>
+    
 </body>
 </html>
