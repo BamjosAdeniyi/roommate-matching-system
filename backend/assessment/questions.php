@@ -215,7 +215,7 @@ $questions = [
     'text' => 'Fear for the worst',
     'keyed' => 'plus',
     'domain' => 'N',
-    'facet' => 6
+    'facet' => 1
   ],
   [
     'id' => 'af55f014-788c-4b6e-92c4-b2b59dc8a28d',

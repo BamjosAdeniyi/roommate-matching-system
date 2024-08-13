@@ -15,20 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
                   traitScores.openness
               ],
               backgroundColor: [
-                  'rgba(75, 192, 192, 0.8)',
-                  'rgba(54, 162, 235, 0.8)',
-                  'rgba(255, 206, 86, 0.8)',
-                  'rgba(255, 99, 132, 0.8)',
-                  'rgba(153, 102, 255, 0.8)'
-              ],
-              borderColor: [
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(153, 102, 255, 1)'
-              ],
-              borderWidth: 1
+                  'rgba(0, 206, 63, 0.75)',
+                  'rgba(0, 66, 207, 0.75)',
+                  'rgba(255, 173, 0, 0.75)',
+                  'rgba(255, 21, 119, 0.75)',
+                  'rgba(127, 0, 213, 0.75)'
+              ]
           }]
       },
       options: {
@@ -54,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Define colors for facets
   const facetColors = [
-      'rgba(75, 192, 192, 0.9)',
-      'rgba(54, 162, 235, 0.9)',
-      'rgba(255, 206, 86, 0.9)',
-      'rgba(255, 99, 132, 0.9)',
-      'rgba(153, 102, 255, 0.9)',
-      'rgba(255, 159, 64, 0.9)'
+        'rgba(0, 206, 63, 0.75)',
+        'rgba(0, 66, 207, 0.75)',
+        'rgba(255, 173, 0, 0.75)',
+        'rgba(255, 21, 119, 0.75)',
+        'rgba(127, 0, 213, 0.75)',
+        'rgba(243, 117, 0, 0.75)'
   ];
 
   // Loop through each domain and create a bar chart for its facets
