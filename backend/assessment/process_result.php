@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_assoc($facetResult)) {
 // Close prepared statements and database connection
 mysqli_stmt_close($traitStmt);
 mysqli_stmt_close($facetStmt);
-mysqli_close($conn);
+// mysqli_close($conn);
 
 // Include the frontend rendering file
 // include '../../frontend/app/user/results.php';
