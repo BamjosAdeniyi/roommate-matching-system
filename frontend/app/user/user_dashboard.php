@@ -1,3 +1,18 @@
+<?php
+// Start the session
+session_start();
+
+// Check if the user is logged in by verifying the session variable
+if (!isset($_SESSION['student_id'])) {
+    // If the user is not logged in, redirect them to the login page with a message
+    echo "<p>User not logged in. Please <a href='/roommate-matching-system/frontend/app/user/user_login_form.php'>log in</a> to access the dashboard.</p>";
+    exit();
+}
+
+// Get the user's first name from the session (assuming it's stored in the session)
+// $user_first_name = isset($_SESSION['first_name']) ? $_SESSION['first_name'] : 'User';
+// ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +23,7 @@
 </head>
 <body>
     <h2>Welcome to the Student Dashboard</h2>
-    <p>You have successfully logged in!</p>
+    <p>Hello, <?php echo htmlspecialchars($user_first_name); ?>! You have successfully logged in!</p>
     <h5>Let's get you matched-up with a compatible roommate</h5>
     <p>Start by selecting your preferred hostel, if you have not chosen before.</p>
     <a href="hostel.php"><button>Select Hostel</button></a>

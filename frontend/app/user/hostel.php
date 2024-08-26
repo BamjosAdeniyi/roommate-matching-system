@@ -53,6 +53,6 @@
     </select><br><br>
     <button type="submit">Submit</button>
   </form>
-  <a href="user_dashboard.html"><button>Home</button></a>
+  <a href="user_dashboard.php"><button>Home</button></a>
 </body>
 </html>

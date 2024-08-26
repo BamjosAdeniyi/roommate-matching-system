@@ -100,7 +100,7 @@ header('location: /roommate-matching-system/frontend/app/user/results.php');
 // echo "Assessment Submitted Successfully";
 ?>
 <html>
-  <a href="/roommate-matching-system/frontend/app/user/user_dashboard.html">
+  <a href="/roommate-matching-system/frontend/app/user/user_dashboard.php">
     <button type="button" id="exitBtn">Exit Questionnaire</button>
   </a>
   <a href="/roommate-matching-system/frontend/app/user/results.php">

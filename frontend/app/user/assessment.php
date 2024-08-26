@@ -51,7 +51,7 @@ function renderChoices($question) {
         <?php endforeach; ?>
         <button type="button" id="prevBtn" disabled>Previous</button>
         <button type="button" id="nextBtn">Next</button>
-        <a href="/roommate-matching-system/frontend/app/user/user_dashboard.html">
+        <a href="/roommate-matching-system/frontend/app/user/user_dashboard.php">
             <button type="button" id="exitBtn">Exit Questionnaire</button>
         </a>
         <button type="submit" id="submitBtn" style="display: none;">Submit</button>

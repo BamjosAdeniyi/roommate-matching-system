@@ -26,7 +26,7 @@ if ($count > 0) {
     // Display message if the assessment has already been taken
     echo "<p>You have already taken the personality test. Are you sure you want to retake it?</p>";
     echo "<a href='/roommate-matching-system/frontend/app/user/assessment.php'><button>Yes, Retake Test</button></a>";
-    echo "<a href='/roommate-matching-system/frontend/app/user/user_dashboard.html'><button>No, Go Back to Dashboard</button></a>";
+    echo "<a href='/roommate-matching-system/frontend/app/user/user_dashboard.php'><button>No, Go Back to Dashboard</button></a>";
 } else {
     // Redirect to assessment page if the assessment has not been taken
     header("Location: /roommate-matching-system/frontend/app/user/assessment.php");
