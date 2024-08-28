@@ -24,20 +24,21 @@
           $student_query = "
             SELECT s.id, s.name,
               GREATEST(
-                s.agreeableness, 
-                s.conscientiousness, 
-                s.extraversion, 
-                s.neuroticism, 
-                s.openness
+                pt.agreeableness, 
+                pt.conscientiousness, 
+                pt.extraversion, 
+                pt.neuroticism, 
+                pt.openness
               ) AS highest_score,
               CASE 
-                WHEN s.agreeableness = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Agreeableness'
-                WHEN s.conscientiousness = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Conscientiousness'
-                WHEN s.extraversion = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Extraversion'
-                WHEN s.neuroticism = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Neuroticism'
-                WHEN s.openness = GREATEST(s.agreeableness, s.conscientiousness, s.extraversion, s.neuroticism, s.openness) THEN 'Openness'
+                WHEN pt.agreeableness = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Agreeableness'
+                WHEN pt.conscientiousness = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Conscientiousness'
+                WHEN pt.extraversion = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Extraversion'
+                WHEN pt.neuroticism = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Neuroticism'
+                WHEN pt.openness = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Openness'
               END AS predominant_trait 
             FROM students s
+            JOIN personality_traits pt ON s.id = pt.student_id
             WHERE s.hostel_id = " . $hostel['id'];
           
           $student_result = mysqli_query($conn, $student_query);
@@ -54,7 +55,7 @@
           }
       }
   } else {
-      echo "<p>No hostels available.</p>";
+      echo "<p>No Registered Student yet.</p>";
   }
 
   mysqli_close($conn);

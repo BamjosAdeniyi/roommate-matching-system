@@ -29,13 +29,22 @@
 
   if (mysqli_num_rows($result) > 0) {
       echo "<table border='1'>";
-      echo "<tr><th>Name</th><th>Number of Rooms</th><th>Students per Room</th><th>Action</th></tr>";
+      echo "<tr><th>Name</th><th>Number of Rooms</th><th>Students per Room</th><th>Actions</th></tr>";
       while ($row = mysqli_fetch_assoc($result)) {
           echo "<tr>";
           echo "<td>" . $row['name'] . "</td>";
           echo "<td>" . $row['number_of_rooms'] . "</td>";
           echo "<td>" . $row['students_per_room'] . "</td>";
-          echo "<td><form action='../../../backend/hostel/delete_hostel.php' method='POST'><input type='hidden' name='id' value='" . $row['id'] . "'><button type='submit'>Delete</button></form></td>";
+          echo "<td>
+                  <form action='../../../backend/hostel/delete_hostel.php' method='POST' style='display:inline;'>
+                      <input type='hidden' name='id' value='" . $row['id'] . "'>
+                      <button type='submit'>Delete</button>
+                  </form>
+                  <form action='edit_hostel.php' method='GET' style='display:inline;'>
+                      <input type='hidden' name='id' value='" . $row['id'] . "'>
+                      <button type='submit'>Edit</button>
+                  </form>
+                </td>";
           echo "</tr>";
       }
       echo "</table>";
