@@ -3,8 +3,20 @@ session_start();
 include '../../../config/db_connect.php'; // Database connection
 
 // Check if the user is logged in
-if (!isset($_SESSION['student_id'])) {
-    die("User not logged in.");
+// if (!isset($_SESSION['student_id'])) {
+//     die("User not logged in.");
+// }
+
+if (isset($_SESSION['admin_id'])) {
+    $student_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+} else {
+    // Check if student is logged in
+    if (!isset($_SESSION['student_id'])) {
+        header("Location: /roommate-matching-system/frontend/app/user/login.php");
+        exit();
+    }
+
+    $student_id = $_SESSION['student_id'];
 }
 
 $studentId = $_SESSION['student_id'];

@@ -45,9 +45,14 @@
 
           if (mysqli_num_rows($student_result) > 0) {
               echo "<table border='1'>";
-              echo "<tr><th>ID</th><th>Name</th><th>Predominant Trait</th></tr>";
+              echo "<tr><th>ID</th><th>Name</th><th>Predominant Trait</th><th>Action</th></tr>";
               while ($student = mysqli_fetch_assoc($student_result)) {
-                  echo "<tr><td>" . $student['id'] . "</td><td>" . $student['name'] . "</td><td>" . $student['predominant_trait'] . "</td></tr>";
+                  echo "<tr>";
+                  echo "<td>" . $student['id'] . "</td>";
+                  echo "<td>" . $student['name'] . "</td>";
+                  echo "<td>" . $student['predominant_trait'] . "</td>";
+                  echo "<td><a href='view_student_profile.php?id=" . $student['id'] . "'><button>View Profile</button></a></td>";
+                  echo "</tr>";
               }
               echo "</table>";
           } else {

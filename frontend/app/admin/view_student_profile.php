@@ -1,14 +1,36 @@
 <?php 
-
 include '../../../backend/assessment/process_result.php';
 
+// The student ID is now correctly retrieved from the URL
+$student_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+if ($student_id == 0) {
+    die("Invalid student ID.");
+}
+
+include '../../../config/db_connect.php';
+
+$student_query = "
+    SELECT s.name, h.name AS hostel_name
+    FROM students s
+    JOIN hostels h ON s.hostel_id = h.id
+    WHERE s.id = $student_id";
+
+$student_result = mysqli_query($conn, $student_query);
+
+if (mysqli_num_rows($student_result) > 0) {
+    $student = mysqli_fetch_assoc($student_result);
+} else {
+    die("Student not found.");
+}
+
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Personality Test Results</title>
+    <title><?php echo htmlspecialchars($student['name']); ?>'s Profile</title>
     <link rel="stylesheet" href="/roommate-matching-system/frontend/styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
@@ -21,10 +43,13 @@ include '../../../backend/assessment/process_result.php';
     </style>
 </head>
 <body>
-    <h1>Your Personality Test Results</h1>
-
-    <h2>Trait Scores</h2>
+    <h1><?php echo htmlspecialchars($student['name']); ?>'s Profile</h1>
+    <p><strong>Hostel:</strong> <?php echo htmlspecialchars($student['hostel_name']); ?></p>
     <button onclick="printPage()">Print This Page</button>
+
+    <h2>Personality Test Results</h2>
+
+    <h3>Trait Scores</h3>
     <ul>
         <li>Agreeableness: <?php echo isset($traitScores['agreeableness']) ? $traitScores['agreeableness'] : 'N/A'; ?></li>
         <li>Conscientiousness: <?php echo isset($traitScores['conscientiousness']) ? $traitScores['conscientiousness'] : 'N/A'; ?></li>
@@ -36,7 +61,7 @@ include '../../../backend/assessment/process_result.php';
     <!-- Chart for overall trait scores -->
     <canvas id="traitChart" width="300" height="150"></canvas>
 
-    <h2>Personality Facet Scores</h2>
+    <h3>Personality Facet Scores</h3>
     <ul>
         <?php foreach ($facetScores as $domain => $facets): ?>
             <li><strong><?php echo ucfirst($traitNames[$domain]); ?>:</strong>
@@ -51,9 +76,7 @@ include '../../../backend/assessment/process_result.php';
         <?php endforeach; ?>
     </ul>
 
-
-    <a href="/roommate-matching-system/frontend/app/user/user_dashboard.php"><button>Back to Dashboard</button></a>
-    <p>If the personality trait parameters are empty, It means you have not taken the personality assessment test yet. Use the personality assessment button on your <a href="/roommate-matching-system/frontend/app/user/user_dashboard.php">dashboard</a> to take the personality assessment test.</p>
+    <a href="/roommate-matching-system/frontend/app/admin/view_students.php"><button>Back to Students</button></a>
 
     <script>
         const traitScores = {

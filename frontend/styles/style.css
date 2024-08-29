@@ -6,6 +6,17 @@ html {
   font-style: normal;
 }
 
+button {
+  
+}
+
 .error {
   color: red;
+}
+
+@media print {
+  button, .no-print {
+      display: none;
+  }
+  /* Adjust layout, fonts, etc. for print */
 }
