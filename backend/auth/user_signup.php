@@ -7,16 +7,30 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Initialize errors array
-$errors = array('name' => '', 'email' => '', 'password' => '', 'confirm_password' => '', 'signup' => '');
+$errors = array('surname' => '', 'first_name' => '', 'other_name' => '', 'email' => '', 'password' => '', 'confirm_password' => '', 'signup' => '');
 
-$name = $email = $password = $confirm_password = '';
+$first_name = $surname = $other_name = $email = $password = $confirm_password = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validate name
-    if (empty($_POST['name'])) {
-        $errors['name'] = 'A name is required';
+    // Validate surname
+    if (empty($_POST['surname'])) {
+        $errors['surname'] = 'A Surname is required';
     } else {
-        $name = trim($_POST['name']);
+        $surname = trim($_POST['surname']);
+    }
+
+    // Validate first name
+    if (empty($_POST['first_name'])) {
+        $errors['first_name'] = 'A first name is required';
+    } else {
+        $first_name = trim($_POST['first_name']);
+    }
+    
+    // Validate first name
+    if (empty($_POST['other_name'])) {
+        $errors['other_name'] = 'A middle name is required';
+    } else {
+        $other_name = trim($_POST['other_name']);
     }
 
     // Validate email
@@ -47,9 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // If no errors, process the signup
-    if (empty($errors['name']) && empty($errors['email']) && empty($errors['password']) && empty($errors['confirm_password'])) {
+    if (empty($errors['first_name']) && empty($errors['surname']) && empty($errors['other_name']) && empty($errors['email']) && empty($errors['password']) && empty($errors['confirm_password'])) {
         // Sanitize input
-        $name = mysqli_real_escape_string($conn, $name);
+        $first_name = mysqli_real_escape_string($conn, $first_name);
+        $surname = mysqli_real_escape_string($conn, $surname);
+        $other_name = mysqli_real_escape_string($conn, $other_name);
         $email = mysqli_real_escape_string($conn, $email);
         $password = mysqli_real_escape_string($conn, $password);
 
@@ -68,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             // Insert the new user into the database
-            $sql = "INSERT INTO students (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
+            $sql = "INSERT INTO students (first_name, surname, other_name, email, password) VALUES ('$first_name', '$surname', '$other_name', '$email', '$hashed_password')";
             if (mysqli_query($conn, $sql)) {
                 // Redirect to the login page after successful registration
                 header("Location: ../../frontend/app/user/user_login_form.php");

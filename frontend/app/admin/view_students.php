@@ -22,7 +22,7 @@
 
           // Fetch students registered in this hostel and determine the predominant trait
           $student_query = "
-            SELECT s.id, s.name,
+            SELECT s.id, s.first_name, s.surname, s.other_name
               GREATEST(
                 pt.agreeableness, 
                 pt.conscientiousness, 

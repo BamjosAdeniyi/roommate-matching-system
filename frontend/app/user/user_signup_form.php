@@ -9,9 +9,17 @@
 <body>
     <h2>Student Registration</h2>
     <form action="/roommate-matching-system/backend/auth/user_signup.php" method="POST">
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>"><br>
-        <div class="error"><?php echo isset($errors['name']) ? $errors['name'] : ''; ?></div><br>
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" value="<?php echo isset($_POST['surname']) ? htmlspecialchars($_POST['surname']) : ''; ?>"><br>
+        <div class="error"><?php echo isset($errors['surname']) ? $errors['surname'] : ''; ?></div><br>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" value="<?php echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; ?>"><br>
+        <div class="error"><?php echo isset($errors['first_name']) ? $errors['first_name'] : ''; ?></div><br>
+
+        <label for="other_name">Middle Name:</label>
+        <input type="text" id="other_name" name="other_name" value="<?php echo isset($_POST['other_name']) ? htmlspecialchars($_POST['other_name']) : ''; ?>"><br>
+        <div class="error"><?php echo isset($errors['other_name']) ? $errors['other_name'] : ''; ?></div><br>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"><br>

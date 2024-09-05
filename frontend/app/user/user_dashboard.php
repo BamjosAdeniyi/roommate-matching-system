@@ -1,6 +1,7 @@
 <?php
 // Start the session
 session_start();
+include '../../../config/db_connect.php';
 
 // Check if the user is logged in by verifying the session variable
 if (!isset($_SESSION['student_id'])) {
@@ -9,9 +10,21 @@ if (!isset($_SESSION['student_id'])) {
     exit();
 }
 
-// Get the user's first name from the session (assuming it's stored in the session)
-// $user_first_name = isset($_SESSION['first_name']) ? $_SESSION['first_name'] : 'User';
-// ?>
+// Get the student's ID from the session
+$student_id = $_SESSION['student_id'];
+
+// Query to get the first name from the students table
+$sql = "SELECT first_name FROM students WHERE id = $student_id";
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $student_first_name = $row['first_name'];
+} else {
+    // If no result, set a default name
+    $student_first_name = 'User';
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +36,7 @@ if (!isset($_SESSION['student_id'])) {
 </head>
 <body>
     <h2>Welcome to the Student Dashboard</h2>
-    <p>Hello, <?php echo htmlspecialchars($user_first_name); ?>! You have successfully logged in!</p>
+    <p>Hello, <?php echo htmlspecialchars($student_first_name); ?>! You have successfully logged in!</p>
     <h5>Let's get you matched-up with a compatible roommate</h5>
     <p>Start by selecting your preferred hostel, if you have not chosen before.</p>
     <a href="hostel.php"><button>Select Hostel</button></a>

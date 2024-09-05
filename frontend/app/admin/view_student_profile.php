@@ -10,7 +10,7 @@ if ($student_id == 0) {
 include '../../../config/db_connect.php';
 
 $student_query = "
-    SELECT s.name, h.name AS hostel_name
+    SELECT s.first_name, s.surname, s.other_name, h.name AS hostel_name
     FROM students s
     JOIN hostels h ON s.hostel_id = h.id
     WHERE s.id = $student_id";
@@ -30,7 +30,7 @@ mysqli_close($conn);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo htmlspecialchars($student['name']); ?>'s Profile</title>
+    <title><?php echo htmlspecialchars($student['surname'], $student['first_name'], $student['other_name']); ?>'s Profile</title>
     <link rel="stylesheet" href="/roommate-matching-system/frontend/styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
