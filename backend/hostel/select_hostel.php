@@ -10,7 +10,7 @@ $sql = "UPDATE students SET hostel_id = $hostel_id WHERE id = $student_id";
 if (mysqli_query($conn, $sql)) {
     echo "Hostel selected successfully!";
     // Redirect to assessment page
-    header("Location: ../../frontend/app/user/assessment.php");
+    header("Location: ../../frontend/app/user/user_dashboard.php");
 } else {
     echo "Error: " . mysqli_error($conn);
 }

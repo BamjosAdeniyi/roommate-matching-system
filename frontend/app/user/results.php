@@ -22,9 +22,9 @@ include '../../../backend/assessment/process_result.php';
 </head>
 <body>
     <h1>Your Personality Test Results</h1>
+    <button onclick="printPage()">Print This Page</button>
 
     <h2>Trait Scores</h2>
-    <button onclick="printPage()">Print This Page</button>
     <ul>
         <li>Agreeableness: <?php echo isset($traitScores['agreeableness']) ? $traitScores['agreeableness'] : 'N/A'; ?></li>
         <li>Conscientiousness: <?php echo isset($traitScores['conscientiousness']) ? $traitScores['conscientiousness'] : 'N/A'; ?></li>

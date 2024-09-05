@@ -23,6 +23,7 @@ if (mysqli_num_rows($student_result) > 0) {
     die("Student not found.");
 }
 
+$full_name = $student['surname'] . " " . $student['first_name'] . " " . $student['other_name'];
 mysqli_close($conn);
 ?>
 
@@ -30,7 +31,7 @@ mysqli_close($conn);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo htmlspecialchars($student['surname'], $student['first_name'], $student['other_name']); ?>'s Profile</title>
+    <title><?php echo htmlspecialchars($student['first_name']); ?>'s Profile</title>
     <link rel="stylesheet" href="/roommate-matching-system/frontend/styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
@@ -43,7 +44,7 @@ mysqli_close($conn);
     </style>
 </head>
 <body>
-    <h1><?php echo htmlspecialchars($student['name']); ?>'s Profile</h1>
+    <h1><?php echo htmlspecialchars($full_name); ?>'s Profile</h1>
     <p><strong>Hostel:</strong> <?php echo htmlspecialchars($student['hostel_name']); ?></p>
     <button onclick="printPage()">Print This Page</button>
 

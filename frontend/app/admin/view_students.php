@@ -22,7 +22,7 @@
 
           // Fetch students registered in this hostel and determine the predominant trait
           $student_query = "
-            SELECT s.id, s.first_name, s.surname, s.other_name
+            SELECT s.id, s.first_name, s.surname, s.other_name,
               GREATEST(
                 pt.agreeableness, 
                 pt.conscientiousness, 
@@ -47,9 +47,11 @@
               echo "<table border='1'>";
               echo "<tr><th>ID</th><th>Name</th><th>Predominant Trait</th><th>Action</th></tr>";
               while ($student = mysqli_fetch_assoc($student_result)) {
+                  // Concatenate surname, first_name, and other_name
+                  $full_name = $student['surname'] . " " . $student['first_name'] . " " . $student['other_name'];
                   echo "<tr>";
                   echo "<td>" . $student['id'] . "</td>";
-                  echo "<td>" . $student['name'] . "</td>";
+                  echo "<td>" . htmlspecialchars($full_name) . "</td>";
                   echo "<td>" . $student['predominant_trait'] . "</td>";
                   echo "<td><a href='view_student_profile.php?id=" . $student['id'] . "'><button>View Profile</button></a></td>";
                   echo "</tr>";
