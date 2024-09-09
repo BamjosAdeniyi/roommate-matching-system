@@ -44,6 +44,11 @@
                       <input type='hidden' name='id' value='" . $row['id'] . "'>
                       <button type='submit'>Edit</button>
                   </form>
+                  <!-- Add Match Roommates button here -->
+                  <form action='match_roommates.php' method='GET' style='display:inline;'>
+                      <input type='hidden' name='hostel_id' value='" . $row['id'] . "'>
+                      <button type='submit'>Match Roommates</button>
+                  </form>
                 </td>";
           echo "</tr>";
       }
