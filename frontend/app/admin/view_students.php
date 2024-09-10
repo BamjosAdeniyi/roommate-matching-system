@@ -44,7 +44,7 @@
           $student_result = mysqli_query($conn, $student_query);
 
           if (mysqli_num_rows($student_result) > 0) {
-              echo "<table border='1'>";
+              echo "<table border='1' cellpadding='10' cellspacing='0'>";
               echo "<tr><th>ID</th><th>Name</th><th>Predominant Trait</th><th>Action</th></tr>";
               while ($student = mysqli_fetch_assoc($student_result)) {
                   // Concatenate surname, first_name, and other_name
