@@ -126,7 +126,7 @@ function calculate_fitness($room) {
         'agreeableness' => 1,
         'conscientiousness' => 1,
         'extraversion' => 0.8,
-        'neuroticism' => 0.5,
+        'neuroticism' => 0.6,
         'openness' => 0.8
     ];
 
@@ -170,7 +170,7 @@ function calculate_fitness($room) {
 }
 
 // Genetic algorithm optimization with elitism
-function genetic_algorithm_optimize($rooms, $iterations = 100, $mutation_rate = 0.01, $elitism_rate = 0.4) {
+function genetic_algorithm_optimize($rooms, $iterations = 400, $mutation_rate = 0.01, $elitism_rate = 0.3) {
     $all_students = [];
     foreach ($rooms as $room) {
         $all_students = array_merge($all_students, $room);

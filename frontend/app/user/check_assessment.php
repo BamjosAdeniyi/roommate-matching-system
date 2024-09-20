@@ -21,17 +21,36 @@ mysqli_stmt_execute($stmt);
 mysqli_stmt_bind_result($stmt, $count);
 mysqli_stmt_fetch($stmt);
 mysqli_stmt_close($stmt);
-
-if ($count > 0) {
-    // Display message if the assessment has already been taken
-    echo "<p>You have already taken the personality test. Are you sure you want to retake it?</p>";
-    echo "<a href='/roommate-matching-system/frontend/app/user/assessment.php'><button>Yes, Retake Test</button></a>";
-    echo "<a href='/roommate-matching-system/frontend/app/user/user_dashboard.php'><button>No, Go Back to Dashboard</button></a>";
-} else {
-    // Redirect to assessment page if the assessment has not been taken
-    header("Location: /roommate-matching-system/frontend/app/user/assessment.php");
-    exit();
-}
-
-mysqli_close($conn);
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Check Assessment</title>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg text-center">
+        <?php if ($count > 0): ?>
+            <p class="text-lg font-semibold mb-4">You have already taken the personality test.</p>
+            <p class="mb-6">Are you sure you want to retake it?</p>
+            <div class="flex justify-center space-x-4">
+                <a href="/roommate-matching-system/frontend/app/user/assessment.php">
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">Yes, Retake Test</button>
+                </a>
+                <a href="/roommate-matching-system/frontend/app/user/user_dashboard.php">
+                    <button class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">No, Go Back to Dashboard</button>
+                </a>
+            </div>
+        <?php else: ?>
+            <?php
+                // Redirect to assessment page if the assessment has not been taken
+                header("Location: /roommate-matching-system/frontend/app/user/assessment.php");
+                exit();
+            ?>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
