@@ -26,9 +26,9 @@
 
             <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">Login</button>
         </form>
-        <div class="mt-4 text-center">
-            <a href="index.html" class="text-blue-500 hover:underline">Home</a>
-        </div>
+        <!-- <div class="mt-4 text-center">
+            <a href="/roommate-matching-system/frontend/app/admin/" class="text-blue-500 hover:underline">Home</a>
+        </div> -->
     </div>
 </body>
 </html>

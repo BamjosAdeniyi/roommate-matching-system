@@ -7,7 +7,7 @@
     <title>Student Registration</title>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg m-10">
         <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Student Registration</h2>
         <form action="/roommate-matching-system/backend/auth/user_signup.php" method="POST">
             <div class="mb-4">

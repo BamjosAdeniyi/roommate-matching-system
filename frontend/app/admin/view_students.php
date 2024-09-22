@@ -24,22 +24,23 @@
             // Fetch students registered in this hostel and determine the predominant trait
             $student_query = "
               SELECT s.id, s.first_name, s.surname, s.other_name,
-                GREATEST(
+                IFNULL(GREATEST(
                   pt.agreeableness, 
                   pt.conscientiousness, 
                   pt.extraversion, 
                   pt.neuroticism, 
                   pt.openness
-                ) AS highest_score,
+                ), 'N/A') AS highest_score,
                 CASE 
                   WHEN pt.agreeableness = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Agreeableness'
                   WHEN pt.conscientiousness = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Conscientiousness'
                   WHEN pt.extraversion = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Extraversion'
                   WHEN pt.neuroticism = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Neuroticism'
                   WHEN pt.openness = GREATEST(pt.agreeableness, pt.conscientiousness, pt.extraversion, pt.neuroticism, pt.openness) THEN 'Openness'
+                  ELSE 'No record'
                 END AS predominant_trait 
               FROM students s
-              JOIN personality_traits pt ON s.id = pt.student_id
+              LEFT JOIN personality_traits pt ON s.id = pt.student_id
               WHERE s.hostel_id = " . $hostel['id'];
 
             $student_result = mysqli_query($conn, $student_query);
