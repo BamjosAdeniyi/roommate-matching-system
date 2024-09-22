@@ -48,3 +48,17 @@ window.onafterprint = function() {
     window.myTraitChart.update();
     facetCharts.forEach(chartInstance => chartInstance.update());
 };
+
+
+function resizeCharts() {
+    const traitChart = document.getElementById('traitChart');
+    traitChart.width = traitChart.parentElement.offsetWidth; // Set width to parent width
+    traitChart.height = traitChart.parentElement.offsetWidth / 2; // Adjust height for aspect ratio
+
+    // Resize other facet charts similarly
+    // Use a loop or repeat similar lines for each facet chart
+}
+
+window.onload = resizeCharts; // Call on load
+window.onresize = resizeCharts; // Call on resize
+

@@ -6,47 +6,51 @@ html {
   font-style: normal;
 }
 
+/* Adjust margins and padding if necessary */
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .error {
   color: red;
 }
 
 @media print {
   button, .no-print {
-      display: none;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Set page size for A4 paper */
-  @page {
-      size: A4;
-      margin: 20mm;
+      display: none; /* Hide buttons and elements with the class 'no-print' */
   }
 
   /* Ensure the chart canvas adjusts to fit the width of the page */
   canvas {
-      width: 100% !important;
-      height: auto !important;  /* Let the height adjust dynamically based on width */
+      width: 100% !important; /* Ensure charts take full width */
+      height: auto !important; /* Maintain aspect ratio */
   }
-  /* Adjust layout, fonts, etc. for print */
+
+  /* Add styles for body and container */
+  body {
+      margin: 0; /* Remove body margin */
+      padding: 0; /* Remove body padding */
+      font-size: 12pt; /* Adjust font size for print, if needed */
+  }
+
+  /* Container adjustments */
+  .container {
+      padding: 10mm; /* Adjust as needed */
+      box-shadow: none; /* Remove drop shadow */
+  }
+
+  /* Spacing adjustments for headers and paragraphs */
+  h1, h2, h3, p {
+      margin: 0 0 10mm 0; /* Add bottom margin */
+      page-break-inside: avoid; /* Prevent breaking inside elements */
+  }
+
+  /* Adjust margins for list items */
+  .mb-4, .mb-6, .mt-4, .mt-8 {
+      margin-bottom: 16px !important; /* Consistent spacing */
+      margin-top: 16px !important; /* Consistent spacing */
+  }
 }
 
-/* Make the charts full width */
-.chart-container {
-  width: 100%;
-  height: auto; /* Adjust height to maintain aspect ratio */
-}
-
-/* Hide elements that are not needed in print */
-.no-print {
-  display: none;
-}
-
-/* Adjust margins and padding if necessary */
-body {
-  margin: 0;
-  padding: 0;
-}
 

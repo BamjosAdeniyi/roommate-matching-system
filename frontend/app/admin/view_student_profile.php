@@ -35,30 +35,36 @@ mysqli_close($conn);
     <title><?php echo htmlspecialchars($student['first_name']); ?>'s Profile</title>
     <link href="/roommate-matching-system/frontend/styles/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="/roommate-matching-system/frontend/script/print_page.js"></script>
 </head>
 <body class="bg-gray-100 min-h-screen p-6 flex flex-col items-center">
-    <div class="container w-full max-w-7xl bg-white p-10 rounded-lg shadow-lg mt-10">
-        <h1 class="text-2xl font-bold mb-4"><?php echo htmlspecialchars($full_name); ?>'s Profile</h1>
+    <div class="container w-full max-w-7xl bg-white p-10 rounded-lg shadow-lg">
+        <div class="flex justify-between items-center w-full mb-4">    
+            <h1 class="text-2xl font-bold"><?php echo htmlspecialchars($full_name); ?>'s Profile</h1>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition flex items-center" onclick="printPage()">
+            <i class="fas fa-print mr-2"></i> Print This Page
+            </button>
+        </div>
+
         <p class="text-gray-700"><strong>Hostel:</strong> <?php echo htmlspecialchars($student['hostel_name']); ?></p>
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-600 transition" onclick="printPage()">Print This Page</button>
 
         <h2 class="text-xl font-semibold mt-6">Personality Test Results</h2>
 
         <h3 class="text-lg font-medium mt-4">Trait Scores</h3>
         <ul class="list-disc ml-6">
-            <li>Agreeableness: <?php echo isset($traitScores['agreeableness']) ? $traitScores['agreeableness'] : 'N/A'; ?></li>
-            <li>Conscientiousness: <?php echo isset($traitScores['conscientiousness']) ? $traitScores['conscientiousness'] : 'N/A'; ?></li>
-            <li>Extraversion: <?php echo isset($traitScores['extraversion']) ? $traitScores['extraversion'] : 'N/A'; ?></li>
-            <li>Neuroticism: <?php echo isset($traitScores['neuroticism']) ? $traitScores['neuroticism'] : 'N/A'; ?></li>
-            <li>Openness: <?php echo isset($traitScores['openness']) ? $traitScores['openness'] : 'N/A'; ?></li>
+            <li>Agreeableness: <?php echo isset($traitScores['agreeableness']) ? $traitScores['agreeableness'] : 'No record'; ?></li>
+            <li>Conscientiousness: <?php echo isset($traitScores['conscientiousness']) ? $traitScores['conscientiousness'] : 'No record'; ?></li>
+            <li>Extraversion: <?php echo isset($traitScores['extraversion']) ? $traitScores['extraversion'] : 'No record'; ?></li>
+            <li>Neuroticism: <?php echo isset($traitScores['neuroticism']) ? $traitScores['neuroticism'] : 'No record'; ?></li>
+            <li>Openness: <?php echo isset($traitScores['openness']) ? $traitScores['openness'] : 'No record'; ?></li>
         </ul>
 
         <!-- Chart for overall trait scores -->
         <div class="my-6">
-            <canvas id="traitChart" width="300" height="80"></canvas>
+            <canvas id="traitChart" width=300 height=80></canvas>
         </div>
 
         <h3 class="text-lg font-medium mt-6">Personality Facet Scores</h3>
@@ -72,7 +78,7 @@ mysqli_close($conn);
                     </ul>
                     <!-- Chart for individual trait facets -->
                     <div class="my-6">
-                        <canvas id="<?php echo $domain; ?>FacetChart" width="300" height="80"></canvas>
+                        <canvas id="<?php echo $domain; ?>FacetChart" width=300 height=80></canvas>
                     </div>
                 </li>
             <?php endforeach; ?>
