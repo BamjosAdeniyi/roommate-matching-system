@@ -6,10 +6,6 @@ html {
   font-style: normal;
 }
 
-button {
-  
-}
-
 .error {
   color: red;
 }
@@ -18,5 +14,39 @@ button {
   button, .no-print {
       display: none;
   }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Set page size for A4 paper */
+  @page {
+      size: A4;
+      margin: 20mm;
+  }
+
+  /* Ensure the chart canvas adjusts to fit the width of the page */
+  canvas {
+      width: 100% !important;
+      height: auto !important;  /* Let the height adjust dynamically based on width */
+  }
   /* Adjust layout, fonts, etc. for print */
 }
+
+/* Make the charts full width */
+.chart-container {
+  width: 100%;
+  height: auto; /* Adjust height to maintain aspect ratio */
+}
+
+/* Hide elements that are not needed in print */
+.no-print {
+  display: none;
+}
+
+/* Adjust margins and padding if necessary */
+body {
+  margin: 0;
+  padding: 0;
+}
+

@@ -8,6 +8,7 @@ include '../../../backend/assessment/process_result.php';
     <meta charset="UTF-8">
     <title>Personality Test Results</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/roommate-matching-system/frontend/styles/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="/roommate-matching-system/frontend/script/print_page.js"></script>
@@ -18,7 +19,7 @@ include '../../../backend/assessment/process_result.php';
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center">
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
     <div class="w-full max-w-7xl bg-white p-10 rounded-lg shadow-lg mt-10">
         <h1 class="text-2xl font-bold mb-4">Your Personality Test Results</h1>
         <button onclick="printPage()" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 mb-6">Print This Page</button>
@@ -33,7 +34,7 @@ include '../../../backend/assessment/process_result.php';
         </ul>
 
         <!-- Chart for overall trait scores -->
-        <canvas id="traitChart" width="300" height="150"></canvas>
+        <canvas id="traitChart" width="150" height="75"></canvas>
 
         <h2 class="text-xl font-semibold mt-8 mb-2">Personality Facet Scores</h2>
         <ul>
@@ -46,7 +47,7 @@ include '../../../backend/assessment/process_result.php';
                         <?php endforeach; ?>
                     </ul>
                     <!-- Chart for individual trait facets -->
-                    <canvas id="<?php echo $domain; ?>FacetChart" width="300" height="150"></canvas>
+                    <canvas id="<?php echo $domain; ?>FacetChart" max-width="50" max-height="25"></canvas>
                 </li>
             <?php endforeach; ?>
         </ul>

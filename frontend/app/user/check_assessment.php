@@ -37,11 +37,11 @@ mysqli_stmt_close($stmt);
             <p class="text-lg font-semibold mb-4">You have already taken the personality test.</p>
             <p class="mb-6">Are you sure you want to retake it?</p>
             <div class="flex justify-center space-x-4">
-                <a href="/roommate-matching-system/frontend/app/user/assessment.php">
-                    <button class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">Yes, Retake Test</button>
-                </a>
                 <a href="/roommate-matching-system/frontend/app/user/user_dashboard.php">
                     <button class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">No, Go Back to Dashboard</button>
+                </a>
+                <a href="/roommate-matching-system/frontend/app/user/assessment.php">
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">Yes, Retake Test</button>
                 </a>
             </div>
         <?php else: ?>

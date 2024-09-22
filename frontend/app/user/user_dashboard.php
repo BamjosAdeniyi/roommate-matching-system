@@ -5,8 +5,8 @@ include '../../../config/db_connect.php';
 
 // Check if the user is logged in by verifying the session variable
 if (!isset($_SESSION['student_id'])) {
-    // If the user is not logged in, redirect them to the login page with a message
-    echo "<p>User not logged in. Please <a href='/roommate-matching-system/frontend/app/user/user_login_form.php'>log in</a> to access the dashboard.</p>";
+    // Redirect to user login if no valid session is found
+    header("Location: /roommate-matching-system/frontend/app/user/user_login_form.php"); // Adjust this to your user login page
     exit();
 }
 

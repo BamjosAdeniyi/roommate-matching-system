@@ -41,21 +41,36 @@ mysqli_close($conn);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/roommate-matching-system/frontend/styles/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <title>Edit Hostel</title>
 </head>
-<body>
-  <h2>Edit Hostel</h2>
-  <form action="edit_hostel.php" method="POST">
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($hostel_id); ?>">
-    <label for="name">Hostel Name:</label><br>
-    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required><br><br>
-    <label for="number_of_rooms">Number of Rooms:</label><br>
-    <input type="number" id="number_of_rooms" name="number_of_rooms" value="<?php echo htmlspecialchars($number_of_rooms); ?>" required><br><br>
-    <label for="students_per_room">Students per Room:</label><br>
-    <input type="number" id="students_per_room" name="students_per_room" value="<?php echo htmlspecialchars($students_per_room); ?>" required><br><br>
-    <button type="submit">Update Hostel</button>
-  </form>
-  <a href="manage_hostels.php"><button>Back to Manage Hostels</button></a>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Edit Hostel</h2>
+    <form action="edit_hostel.php" method="POST">
+      <input type="hidden" name="id" value="<?php echo htmlspecialchars($hostel_id); ?>">
+
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">Hostel Name</label>
+        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="number_of_rooms" class="block text-sm font-medium text-gray-700">Number of Rooms</label>
+        <input type="number" id="number_of_rooms" name="number_of_rooms" value="<?php echo htmlspecialchars($number_of_rooms); ?>" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+      </div>
+
+      <div class="mb-6">
+        <label for="students_per_room" class="block text-sm font-medium text-gray-700">Students per Room</label>
+        <input type="number" id="students_per_room" name="students_per_room" value="<?php echo htmlspecialchars($students_per_room); ?>" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">Update Hostel</button>
+    </form>
+    
+    <a href="manage_hostels.php" class="block mt-4 text-center">
+      <button class="w-full bg-gray-300 text-gray-700 py-2 rounded-md hover:bg-gray-400 transition duration-300">Back to Manage Hostels</button>
+    </a>
+  </div>
 </body>
 </html>

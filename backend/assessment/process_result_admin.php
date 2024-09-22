@@ -2,15 +2,15 @@
 session_start();
 include '../../../config/db_connect.php'; // Database connection
 
-// Check if the user (student) is logged in
-if (!isset($_SESSION['student_id'])) {
-    // Redirect to user login if no valid session is found
-    header("Location: /roommate-matching-system/frontend/app/user/user_login_form.php"); // Adjust this to your user login page
+/// Check if the user is an admin or a student
+if (isset($_SESSION['admin_id'])) {
+    // If admin is logged in, use the student ID passed in the URL
+    $student_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+} else {
+    // Redirect to admin login if no valid session is found
+    header("Location: /roommate-matching-system/frontend/app/admin/admin_login_form.php"); // Adjust this to your user login page
     exit();
 }
-
-// If a student is logged in, they can only view their own profile
-$student_id = $_SESSION['student_id'];
 
 
 // Validate the student ID
