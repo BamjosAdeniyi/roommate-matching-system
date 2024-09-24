@@ -19,3 +19,4 @@ The Student Roommate Matching System is a web-based application designed to help
 - **Backend**: PHP
 - **Database**: MySQL
 - **Algorithms**: Fuzzy Logic, Genetic Algorithms
+- **Personality Trait Model**: Big Five Personality, [IPIP-NEO-120](https://novopsych.com.au/assessments/formulation/international-personality-item-pool-neo-120-item-version-ipip-neo-120/)
