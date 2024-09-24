@@ -61,7 +61,7 @@ function fuzzy_group_students($students, $students_per_room) {
             'agreeableness' => triangular_membership($student['agreeableness'], 0, 60, 120),
             'conscientiousness' => triangular_membership($student['conscientiousness'], 0, 60, 120),
             'extraversion' => triangular_membership($student['extraversion'], 0, 60, 120),
-            'neuroticism' => triangular_membership($student['neuroticism'], 0, 60, 120),
+            'neuroticism' => triangular_membership($student['neuroticism'], 0, 40, 80),
             'openness' => triangular_membership($student['openness'], 0, 60, 120),
         ];
 
@@ -87,32 +87,56 @@ function fuzzy_group_students($students, $students_per_room) {
 
 // Check if we can add this student to the current room based on fuzzy logic
 function can_add_student_to_room($current_room, $student, $fuzzy_scores, $students_per_room) {
+    // If the room is already full
     if (count($current_room) >= $students_per_room) {
         return false; // Room is full
     }
 
+    // Define weights for the personality traits based on their importance
+    $trait_weights = [
+        'agreeableness' => 0.3,
+        'conscientiousness' => 0.25,
+        'extraversion' => 0.15,
+        'neuroticism' => 0.1,
+        'openness' => 0.2,
+    ];
+
+    // Compatibility score for this student with the room
     foreach ($current_room as $room_student) {
         $room_fuzzy_scores = [
             'agreeableness' => triangular_membership($room_student['agreeableness'], 0, 60, 120),
             'conscientiousness' => triangular_membership($room_student['conscientiousness'], 0, 60, 120),
             'extraversion' => triangular_membership($room_student['extraversion'], 0, 60, 120),
-            'neuroticism' => triangular_membership($room_student['neuroticism'], 0, 60, 120),
+            'neuroticism' => triangular_membership($room_student['neuroticism'], 0, 40, 80),
             'openness' => triangular_membership($room_student['openness'], 0, 60, 120),
         ];
 
-        // Calculate compatibility score based on fuzzy scores
+        // Calculate the weighted compatibility score based on fuzzy logic and weights
         $compatibility = 0;
         foreach ($fuzzy_scores as $trait => $score) {
-            $compatibility += min($score, $room_fuzzy_scores[$trait]);
+            $room_trait_score = $room_fuzzy_scores[$trait];
+
+            // New fuzzy rule: consider the difference in fuzzy scores
+            $difference = abs($score - $room_trait_score);
+
+            // Fuzzy rule: Higher difference in neuroticism reduces compatibility more
+            if ($trait === 'neuroticism') {
+                $compatibility -= $difference * $trait_weights[$trait];
+            } else {
+                // For other traits, similarity improves compatibility
+                $compatibility += (1 - $difference) * $trait_weights[$trait];
+            }
         }
 
-        // Set a threshold for compatibility
-        if ($compatibility < 0.5) {
+        // Check if compatibility is below a dynamic threshold (based on room size)
+        $threshold = 0.37 + (0.05 * (count($current_room) / $students_per_room)); // Dynamic threshold
+        if ($compatibility < $threshold) {
             return false; // Not compatible enough
         }
     }
     return true; // Compatible enough to add to the room
 }
+
 
 
 // Fitness calculation using individual trait differences with weights and neuroticism penalty
@@ -123,11 +147,11 @@ function calculate_fitness($room) {
 
     // Define weights for each personality trait
     $weights = [
-        'agreeableness' => 1,
-        'conscientiousness' => 1,
-        'extraversion' => 0.8,
-        'neuroticism' => 0.6,
-        'openness' => 0.8
+        'agreeableness' => 0.3,
+        'conscientiousness' => 0.25,
+        'extraversion' => 0.15,
+        'neuroticism' => 0.1,
+        'openness' => 0.2
     ];
 
     // Iterate through pairs of students and calculate trait differences
@@ -158,7 +182,7 @@ function calculate_fitness($room) {
     $average_neuroticism = $total_neuroticism / count($room);
 
     // Apply penalty for high neuroticism
-    $neuroticism_penalty = max(0, $average_neuroticism - 70) * 0.1;
+    $neuroticism_penalty = max(0, $average_neuroticism - 65) * 0.1;
 
     // Calculate fitness score
     $compatibility_score = max(0, min($compatibility_score, 1));
@@ -170,7 +194,7 @@ function calculate_fitness($room) {
 }
 
 // Genetic algorithm optimization with elitism
-function genetic_algorithm_optimize($rooms, $iterations = 400, $mutation_rate = 0.01, $elitism_rate = 0.3) {
+function genetic_algorithm_optimize($rooms, $iterations = 400, $mutation_rate = 0.1, $elitism_rate = 0.3) {
     $all_students = [];
     foreach ($rooms as $room) {
         $all_students = array_merge($all_students, $room);
@@ -260,8 +284,32 @@ $students_per_room = $hostel['students_per_room'];
 // Initial fuzzy grouping
 $initial_rooms = fuzzy_group_students($students, $students_per_room);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+// echo "INITIAL ROOMS";
+// echo "Total students in initial rooms: " . array_reduce($initial_rooms, function($carry, $room) {
+//     return $carry + count($room);
+// }, 0) . "\n";
+// echo "<pre>"; // Helps to format the output for better readability
+// print_r($initial_rooms); // or var_dump($initialRooms);
+// echo "</pre>";
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Optimize the room assignment using the genetic algorithm with elitism
 $optimized_rooms = genetic_algorithm_optimize($initial_rooms);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+// echo "OPTIMIZED ROOMS";
+// echo "Total students in optimized rooms: " . array_reduce($optimized_rooms, function($carry, $room) {
+//     return $carry + count($room);
+// }, 0) . "\n";
+
+// echo "<pre>"; // Helps to format the output for better readability
+// print_r($optimized_rooms); // or var_dump($initialRooms);
+// echo "</pre>";
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // Clear previous room assignments for this hostel
 $delete_query = "DELETE FROM room_assignments WHERE hostel_id = (SELECT hostel_id FROM scenario_$scenario_id LIMIT 1)";
