@@ -8,17 +8,17 @@
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Student Login</h2>
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Student Login</h2>
         <form action="/roommate-matching-system/backend/auth/user_login.php" method="POST">
             <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="<?php echo htmlspecialchars($email ?? ''); ?>">
+                <label for="email" class="block font-semibold text-gray-700">Email</label>
+                <input type="email" id="email" name="email" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" value="<?php echo htmlspecialchars($email ?? ''); ?>">
                 <div class="text-red-500 text-sm mt-1"><?php echo $errors['email'] ?? ''; ?></div>
             </div>
 
             <div class="mb-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" name="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="<?php echo htmlspecialchars($password ?? ''); ?>">
+                <label for="password" class="block font-semibold text-gray-700">Password</label>
+                <input type="password" id="password" name="password" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" value="<?php echo htmlspecialchars($password ?? ''); ?>">
                 <div class="text-red-500 text-sm mt-1"><?php echo $errors['password'] ?? ''; ?></div>
             </div>
 

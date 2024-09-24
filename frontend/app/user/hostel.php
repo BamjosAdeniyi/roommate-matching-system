@@ -10,8 +10,9 @@
   <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
     <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Select Your Preferred Hostel</h2>
     <form action="../../../backend/hostel/select_hostel.php" method="POST">
-      <label for="hostels" class="block text-sm font-medium text-gray-700 mb-2">Choose a hostel:</label>
-      <select id="hostels" name="hostel_id" required class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mb-4">
+      <label for="hostels" class="block text-sm text-center font-medium text-gray-700 mb-2">Choose a hostel:</label>
+      <select id="hostels" name="hostel_id" required class="mt-1 mb-2 block w-full p-2 border border-gray-300 rounded-md">
+        <option value=''>Choose</option>
       
       <?php
         // Add error reporting
@@ -19,11 +20,6 @@
         ini_set('display_errors', 1);
 
         include '../../../config/db_connect.php';
-
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
 
         $sql = "SELECT id, name, number_of_rooms, students_per_room FROM hostels";
         $result = mysqli_query($conn, $sql);
@@ -51,7 +47,7 @@
     </form>
     
     <div class="mt-4 text-center">
-      <a href="user_dashboard.php" class="text-blue-500 hover:underline">Home</a>
+      <a href="user_dashboard.php" class="text-blue-500 hover:underline">Back to Dashboard</a>
     </div>
   </div>
 </body>

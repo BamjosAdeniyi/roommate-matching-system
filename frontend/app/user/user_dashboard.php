@@ -39,7 +39,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Student Dashboard</h2>
         <p class="text-lg text-gray-700 text-center mb-4">Hello, <?php echo htmlspecialchars($student_first_name); ?>! You have successfully logged in!</p>
         <h5 class="text-xl text-gray-800 font-semibold text-center mb-6">Let's get you matched-up with a compatible roommate</h5>
-        <p class="text-sm text-gray-600 text-center mb-6">Start by selecting your preferred hostel, if you have not chosen before.</p>
+        <p class="text-sm text-gray-600 text-center mb-6">Start by selecting your preferred hostel, if you have not before.</p>
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <a href="hostel.php" class="w-full">
