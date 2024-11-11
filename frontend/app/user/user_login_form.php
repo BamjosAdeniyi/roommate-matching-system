@@ -33,7 +33,7 @@
             <a href="user_signup_form.php" class="text-blue-500 hover:underline">Sign up</a>
         </p>
         <div class="mt-4 text-center">
-            <a href="../../frontend/app/index.html" class="text-blue-500 hover:underline">Home</a>
+            <a href="../index.html" class="text-blue-500 hover:underline">Home</a>
         </div>
     </div>
 </body>
