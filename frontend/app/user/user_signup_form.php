@@ -52,7 +52,7 @@
         </form>
 
         <p class="text-sm text-gray-600 mt-4 text-center">Already have an account? 
-            <a href="user_login_form.php" class="text-blue-500 hover:underline">Login</a>
+            <a href="user_login.php" class="text-blue-500 hover:underline">Login</a>
         </p>
         <div class="mt-4 text-center">
             <a href="../index.html" class="text-blue-500 hover:underline">Home</a>

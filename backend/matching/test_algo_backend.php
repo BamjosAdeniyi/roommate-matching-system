@@ -28,6 +28,7 @@ $students = [];
 while ($row = mysqli_fetch_assoc($scenario_result)) {
     $students[] = $row;
 }
+
 // Fuzzy membership functions
 function triangular_membership($x, $a, $b, $c) {
     // Triangular membership function
@@ -218,6 +219,7 @@ function genetic_algorithm_optimize($rooms, $iterations = 400, $mutation_rate = 
     // return $final_best_rooms;
        return $best_rooms;
 }
+
 // Fetch hostel details (number of rooms, students per room)
 $hostel_query = "
     SELECT students_per_room 
@@ -291,6 +293,65 @@ foreach ($optimized_rooms as $room) {
     echo "</table>";
     $room_number++;
 }
+
+$trait_weights = [
+    'agreeableness' => 0.3,
+    'conscientiousness' => 0.25,
+    'extraversion' => 0.15,
+    'neuroticism' => 0.1,
+    'openness' => 0.2,
+];
+
+function calculate_compatibility_score($room, $trait_weights) {
+    $total_compatibility = 0;
+    $num_pairs = 0;
+
+    for ($i = 0; $i < count($room); $i++) {
+        for ($j = $i + 1; $j < count($room); $j++) {
+            // Calculate compatibility score for each pair
+            $pair_compatibility = 0;
+            foreach ($trait_weights as $trait => $weight) {
+                $trait_difference = abs($room[$i][$trait] - $room[$j][$trait]);
+                $pair_compatibility += (1 - $trait_difference / 120) * $weight; // Normalize by max trait score (e.g., 120)
+            }
+            $total_compatibility += $pair_compatibility;
+            $num_pairs++;
+        }
+    }
+
+    // Average compatibility score for the room
+    return $num_pairs > 0 ? $total_compatibility / $num_pairs : 0;
+}
+
+function calculate_trait_difference_minimization($room, $trait_weights) {
+    $total_difference = 0;
+    $num_pairs = 0;
+
+    for ($i = 0; $i < count($room); $i++) {
+        for ($j = $i + 1; $j < count($room); $j++) {
+            // Sum of weighted differences for each pair
+            $pair_difference = 0;
+            foreach ($trait_weights as $trait => $weight) {
+                $pair_difference += abs($room[$i][$trait] - $room[$j][$trait]) * $weight;
+            }
+            $total_difference += $pair_difference;
+            $num_pairs++;
+        }
+    }
+
+    // Average trait difference for the room
+    return $num_pairs > 0 ? $total_difference / $num_pairs : 0;
+}
+
+foreach ($optimized_rooms as $room_number => $room) {
+    $compatibility_score = calculate_compatibility_score($room, $trait_weights);
+    $trait_diff_minimization = calculate_trait_difference_minimization($room, $trait_weights);
+
+    echo "<h4>Room $room_number:</h4>";
+    echo "Compatibility Score: " . number_format($compatibility_score, 2) . "<br>";
+    echo "Trait Difference Minimization: " . number_format($trait_diff_minimization, 2) . "<br>";
+}
+
 // Calculate average fitness score
 $total_fitness = 0;
 foreach ($optimized_rooms as $room) {

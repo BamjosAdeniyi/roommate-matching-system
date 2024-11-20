@@ -55,7 +55,7 @@ function renderChoices($question) {
                 <button type="button" id="nextBtn" class="bg-blue-500 text-white py-3 px-6 rounded-md hover:bg-blue-600 transition duration-300">Next</button>
                 <button type="submit" id="submitBtn" class="bg-green-500 text-white py-3 px-6 rounded-md" style="display: none;">Submit</button>
                 <a href="/roommate-matching-system/frontend/app/user/user_dashboard.php">
-                    <button type="button" id="exitBtn" class="bg-gray-300 text-gray-700 py-3 px-6 rounded-md">Exit Questionnaire</button>
+                    <button type="button" id="exitBtn" class="bg-red-300 text-white-700 py-3 px-6 rounded-md">Exit Questionnaire</button>
                 </a>
             </div>
             <div id="alertMessage" class="mt-4 text-red-500">Please select an option before proceeding to the next question.</div> <!-- Alert Message -->
